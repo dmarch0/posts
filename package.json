@@ -13,6 +13,7 @@
   "author": "Daniil Bereznev",
   "license": "MIT",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
     "concurrently": "^4.1.2",
     "cors": "^2.8.5",
@@ -20,7 +21,8 @@
     "express-graphql": "^0.9.0",
     "graphql": "^14.5.4",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.6.13"
+    "mongoose": "^5.6.13",
+    "validator": "^11.1.0"
   },
   "devDependencies": {
     "nodemon": "^1.19.2"

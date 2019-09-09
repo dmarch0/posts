@@ -8,6 +8,9 @@ module.exports = buildSchema(`
         email: String!
         bio: String
         posts: [Post!]!
+        handle: String
+        follows: [User!]!
+        followers: [User!]!
     }
     type Post {
         author: User!
@@ -42,13 +45,12 @@ module.exports = buildSchema(`
     }
 
     input EditUserInput {
-        name: String
         avatar: String
         bio: String
+        handle: String
     }
 
     type AuthData {
-        userId: ID!
         token: String!
     }
 
@@ -65,5 +67,9 @@ module.exports = buildSchema(`
         unfollow(userId: ID!): User!
         addPost(postInput: PostInput): Post!
         commentPost(commentText: String!): Post!
+    }
+    schema {
+        query: RootQuery
+        mutation: RootMutation
     }
 `);

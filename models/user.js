@@ -26,21 +26,21 @@ const UserSchema = new Schema({
   posts: [
     {
       type: Schema.Types.ObjectId,
-      ref: "Posts"
+      ref: "posts"
     }
   ],
   followers: [
     {
       type: Schema.Types.ObjectId,
-      ref: "Users"
+      ref: "users"
     }
   ],
   follows: [
     {
       type: Schema.Types.ObjectId,
-      ref: "Users"
+      ref: "users"
     }
   ]
 });
 
-module.exports = mongoose.model("Users", UserSchema);
+module.exports = mongoose.model("users", UserSchema);

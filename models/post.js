@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const PostsSchema = new Schema({
   author: {
     type: Schema.Types.ObjectId,
-    ref: "Users"
+    ref: "users"
   },
   title: {
     type: String,
@@ -22,7 +22,7 @@ const PostsSchema = new Schema({
     {
       author: {
         type: Schema.Types.ObjectId,
-        ref: "Users"
+        ref: "users"
       },
       text: {
         type: String,
@@ -44,4 +44,4 @@ const PostsSchema = new Schema({
   ]
 });
 
-module.exports = mongoose.model("Posts", PostsSchema);
+module.exports = mongoose.model("posts", PostsSchema);

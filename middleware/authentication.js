@@ -23,5 +23,6 @@ module.exports = (req, res, next) => {
     return next();
   }
   req.isAuth = true;
-  req.user = decoded;
+  req.user = decoded.userId;
+  return next();
 };
