@@ -17,6 +17,7 @@ module.exports = buildSchema(`
         title: String!
         date: String!
         comments: [Comment!]!
+        _id: ID!
     }
 
     type Comment {
@@ -66,7 +67,8 @@ module.exports = buildSchema(`
         follow(userId: ID!): User!
         unfollow(userId: ID!): User!
         addPost(postInput: PostInput): Post!
-        commentPost(commentText: String!): Post!
+        commentPost(commentText: String!, postId: ID!): Post!
+        deletePost(postId: ID!): Post!
     }
     schema {
         query: RootQuery
