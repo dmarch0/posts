@@ -73,7 +73,7 @@ module.exports = {
       if (!isEmpty(errors)) {
         throw new Error(JSON.stringify(errors));
       }
-      const payload = { userId: user._id };
+      const payload = { userId: user._id, avatar: user.avatar };
       const token = await jwt.sign(payload, process.env.SECRET, {
         expiresIn: 3600
       });

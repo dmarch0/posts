@@ -18,9 +18,21 @@ const InputField = ({ className, name, type, label, placeholder }) => {
 
 const StyledFieldInput = styled(InputField)`
   label {
+    display: ${props => (props.inline ? "inline-block" : "block")};
+    padding-bottom: 10px;
+    padding-top: 10px;
   }
 
   input {
+    height: 2rem;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    padding: 5px;
+    box-sizing: border-box;
+    display: ${props => (props.inline ? "inline-block" : "block")};
+    &:focus {
+      outline: none;
+    }
   }
 `;
 
