@@ -1,6 +1,12 @@
-import { LOGIN_FETCH } from "./types";
+import { LOGIN_FETCH, LOGOUT } from "./types";
 
-export const loginFetch = formValues => ({
-  type: LOGIN_FETCH,
-  payload: formValues
+export const loginFetch = (formValues, history) => {
+  return {
+    type: LOGIN_FETCH,
+    payload: { formValues, history }
+  };
+};
+
+export const logout = () => ({
+  type: LOGOUT
 });

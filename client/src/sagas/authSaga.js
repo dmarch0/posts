@@ -12,10 +12,12 @@ function* authWatcher() {
 
 function* authWorker(action) {
   try {
+    const { email, password } = action.payload.formValues;
+    const { history } = action.payload;
     const response = yield call(axiosInstance.post, "", {
       query: `
         mutation {
-            login(loginInput:{email:"${action.payload.email}", password:"${action.payload.password}"}) {
+            login(loginInput:{email:"${email}", password:"${password}"}) {
                 token
             }
         }
@@ -27,11 +29,10 @@ function* authWorker(action) {
     const decoded = jwt_decode(token);
     try {
       const avatarResponse = yield call(axios.get(decoded.avatar));
-      console.log("hello");
     } catch (error) {
       decoded.avatar = false;
     }
-
+    yield call(history.push, "/");
     yield put({ type: LOGIN_SUCCESS, payload: decoded });
   } catch (error) {
     const errors = JSON.parse(error.response.data.errors[0].message);

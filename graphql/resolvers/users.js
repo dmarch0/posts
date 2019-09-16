@@ -94,7 +94,9 @@ module.exports = {
       if (!user) {
         throw new Error("Token incorrect");
       }
-
+      if (args.editInput.handle.length > 10) {
+        throw new Error("Handle can't be longer then 10 characters");
+      }
       if (args.editInput.handle) {
         const handleOccupied = await User.findOne({
           handle: args.editInput.handle

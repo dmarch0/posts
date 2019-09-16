@@ -6,12 +6,12 @@ import InputField from "../fields/InputField";
 import Button from "../fields/Button";
 import { loginFetch } from "../../actions/authActions";
 
-const Login = ({ loginFetch, handleSubmit }) => {
-  const onSubmit = formValues => {
-    loginFetch(formValues);
+const Login = ({ loginFetch, handleSubmit, history }) => {
+  const onSubmit = (formValues, history) => {
+    loginFetch(formValues, history);
   };
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(formValues => onSubmit(formValues, history))}>
       <InputField name="email" label="Email" placeholder="Email" />
       <InputField
         name="password"
