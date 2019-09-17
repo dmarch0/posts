@@ -1,13 +1,13 @@
 import React from "react";
 import styled from "styled-components";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 
 import style from "../../config/style";
 import placeholder from "../../img/placeholder.jpg";
 import { logout } from "../../actions/authActions";
 
-const Navbar = ({ className, auth, logout }) => {
+const Navbar = ({ className, auth, logout, history }) => {
   const loggedInContent = (
     <>
       <div className="nav-block">
@@ -20,7 +20,7 @@ const Navbar = ({ className, auth, logout }) => {
       </div>
       <div className="nav-block">
         <div className="nav-item">
-          <Link to={`/profile/${auth.handle ? auth.handle : auth.userId}`}>
+          <Link to={`/profile/${auth.userId}`}>
             <img
               src={auth.avatar ? auth.avatar : placeholder}
               alt="user avatar"
@@ -28,7 +28,13 @@ const Navbar = ({ className, auth, logout }) => {
           </Link>
         </div>
         <div className="nav-item">
-          <a href="#" onClick={logout}>
+          <a
+            href="#"
+            onClick={() => {
+              logout();
+              history.push("/");
+            }}
+          >
             log out
           </a>
         </div>
@@ -78,6 +84,7 @@ const StyledNavbar = styled(Navbar)`
     width: 20px;
     height: 20px;
     border-radius: 50%;
+    object-fit: cover;
   }
   .nav-item {
     display: inline-block;
@@ -89,6 +96,8 @@ const StyledNavbar = styled(Navbar)`
   }
 `;
 
+const routerConnected = withRouter(StyledNavbar);
+
 const mapStateToProps = state => ({
   auth: state.auth
 });
@@ -96,4 +105,4 @@ const mapStateToProps = state => ({
 export default connect(
   mapStateToProps,
   { logout }
-)(StyledNavbar);
+)(routerConnected);

@@ -28,7 +28,7 @@ function* authWorker(action) {
     localStorage.setItem("token", token);
     const decoded = jwt_decode(token);
     try {
-      const avatarResponse = yield call(axios.get(decoded.avatar));
+      const avatarResponse = yield call(axios.get, decoded.avatar);
     } catch (error) {
       decoded.avatar = false;
     }

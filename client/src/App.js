@@ -15,6 +15,7 @@ import { LOGIN_SUCCESS, LOGOUT, SET_AUTH } from "./actions/types";
 import checkAvatar from "./utils/checkAvatar";
 import PrivateRoute from "./components/common/PrivateRoute";
 import EditProfile from "./components/profile/EditProfile";
+import axios from "./config/axios";
 
 (async () => {
   if (localStorage["token"]) {
@@ -26,9 +27,31 @@ import EditProfile from "./components/profile/EditProfile";
     } else {
       setAuthHeader(localStorage["token"]);
       store.dispatch({ type: SET_AUTH, payload: true });
-      decoded.avatar = (await checkAvatar(decoded.avatar))
-        ? decoded.avatar
-        : false;
+
+      //update user info
+      try {
+        const response = await axios.post("/", {
+          query: `
+          query {
+            user(userId:"${decoded.userId}") {
+              avatar
+              bio
+              handle
+            }
+          }
+        `
+        });
+        console.log(response);
+        const { avatar, bio, handle } = response.data.data.user;
+        decoded.avatar = avatar;
+        decoded.avatar = (await checkAvatar(decoded.avatar))
+          ? decoded.avatar
+          : false;
+        decoded.bio = bio;
+        decoded.handle = handle;
+      } catch (error) {
+        console.log(error.response);
+      }
       store.dispatch({ type: LOGIN_SUCCESS, payload: decoded });
     }
   }

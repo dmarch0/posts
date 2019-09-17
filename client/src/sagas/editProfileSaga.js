@@ -46,7 +46,7 @@ function* editProfileWorker(action) {
     const response = yield call(axiosConfig.post, "", {
       query: queryString
     });
-
+    yield call(history.push, `/profile/${response.data.data.editUser.handle}`);
     yield put({ type: EDIT_SUCCESS, payload: response.data.data.editUser });
   } catch (error) {
     yield put({
