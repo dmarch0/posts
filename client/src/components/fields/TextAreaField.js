@@ -2,7 +2,14 @@ import React from "react";
 import styled from "styled-components";
 import { Field } from "redux-form";
 
-const TextAreaField = ({ className, name, label, placeholder, desc }) => {
+const TextAreaField = ({
+  className,
+  name,
+  label,
+  placeholder,
+  desc,
+  defaultValue
+}) => {
   return (
     <div className={className}>
       <label>{label}</label>
@@ -11,7 +18,7 @@ const TextAreaField = ({ className, name, label, placeholder, desc }) => {
         component="textarea"
         placeholder="Your bio"
         type="text"
-        maxlength="400"
+        maxLength="400"
       />
       {desc ? <div className="desc">{desc}</div> : null}
     </div>

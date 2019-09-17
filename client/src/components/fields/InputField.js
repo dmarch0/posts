@@ -1,7 +1,6 @@
 import React from "react";
 import { Field } from "redux-form";
 import styled from "styled-components";
-import PropTypes from "prop-types";
 
 const InputField = ({ className, name, type, label, placeholder, desc }) => {
   return (

@@ -21,7 +21,10 @@ const Navbar = ({ className, auth, logout }) => {
       <div className="nav-block">
         <div className="nav-item">
           <Link to={`/profile/${auth.handle ? auth.handle : auth.userId}`}>
-            <img src={auth.avatar ? auth.avatar : placeholder} />
+            <img
+              src={auth.avatar ? auth.avatar : placeholder}
+              alt="user avatar"
+            />
           </Link>
         </div>
         <div className="nav-item">

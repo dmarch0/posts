@@ -13,3 +13,4 @@ export const PROFILE_CLEAR = "PROFILE_CLEAR";
 export const EDIT_FETCH = "EDIT_FETCH";
 export const EDIT_SUCCESS = "EDIT_SUCCESS";
 export const EDIT_ERROR = "EDIT_ERROR";
+export const EDIT_CLEAR = "EDIT_CLEAR";

@@ -1,12 +1,29 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { reduxForm } from "redux-form";
+import { connect } from "react-redux";
 
 import InputField from "../fields/InputField";
 import TextAreaField from "../fields/TextAreaField";
 import Button from "../fields/Button";
+import { editFetch } from "../../actions/profileAction";
 
-const EditProfile = ({ handleSubmit, history }) => {
-  const onSubmit = formValues => {};
+const EditProfile = ({
+  handleSubmit,
+  history,
+  auth,
+  initialize,
+  editFetch
+}) => {
+  useEffect(() => {
+    initialize({
+      handle: auth.handle,
+      bio: auth.bio,
+      avatar: auth.avatar ? auth.avatar : ""
+    });
+  }, [auth.handle, auth.bio, auth.avatar]);
+  const onSubmit = formValues => {
+    editFetch(formValues, history);
+  };
   return (
     <form onSubmit={handleSubmit(onSubmit, history)}>
       <InputField
@@ -36,4 +53,11 @@ const EditProfile = ({ handleSubmit, history }) => {
 
 const formConnected = reduxForm({ form: "edit" })(EditProfile);
 
-export default formConnected;
+const mapStateToProps = state => ({
+  auth: state.auth
+});
+
+export default connect(
+  mapStateToProps,
+  { editFetch }
+)(formConnected);

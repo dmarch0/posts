@@ -16,7 +16,7 @@ const ProfileDisplay = ({ profileFetch, match, className, profile, auth }) => {
     } else {
       profileFetch(null, handle);
     }
-  }, [handle]);
+  }, [handle, profileFetch]);
   const userMatchedRender = <Link to="/edit">edit profile</Link>;
   const userNotMatchedRender = "user not matched";
   const renderedContent = profile.loading ? (

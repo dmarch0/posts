@@ -4,7 +4,7 @@ export const profileFetch = (id, handle) => {
   if (id) {
     return { type: PROFILE_FETCH, payload: { id } };
   } else if (handle) {
-    return { TYPE: PROFILE_FETCH, payload: { handle } };
+    return { type: PROFILE_FETCH, payload: { handle } };
   }
 };
 

@@ -12,13 +12,12 @@ function* profileWatcher() {
 }
 
 function* profileWorker(action) {
-  console.log("saga fired");
   try {
     const { id, handle } = action.payload;
     const queryString = `
     query {
         user(${
-          id ? "userId: " + '"' + id + '"' : "handle" + '"' + handle + '"'
+          id ? "userId: " + '"' + id + '"' : "handle: " + '"' + handle + '"'
         }) {
             _id
             name

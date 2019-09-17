@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Provider } from "react-redux";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import "normalize.css";
@@ -25,7 +25,6 @@ import EditProfile from "./components/profile/EditProfile";
       store.dispatch({ type: LOGOUT });
     } else {
       setAuthHeader(localStorage["token"]);
-      console.log("firest time");
       store.dispatch({ type: SET_AUTH, payload: true });
       decoded.avatar = (await checkAvatar(decoded.avatar))
         ? decoded.avatar
@@ -36,7 +35,6 @@ import EditProfile from "./components/profile/EditProfile";
 })();
 
 const App = () => {
-  console.log("rendered");
   return (
     <Provider store={store}>
       <Router>

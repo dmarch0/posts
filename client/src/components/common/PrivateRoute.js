@@ -3,12 +3,10 @@ import { Route, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 
 const PrivateRoute = ({ component: Component, auth, ...rest }) => {
-  console.log(auth);
   return (
     <Route
       {...rest}
       render={props => {
-        console.log(auth.isAuth);
         return auth.isAuth ? (
           <Component {...props} />
         ) : (

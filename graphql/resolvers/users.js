@@ -13,6 +13,7 @@ module.exports = {
       if (args.userId) {
         user = await User.findById(args.userId);
       } else if (args.handle) {
+        console.log("handle found");
         user = await User.findOne({ handle: args.handle });
       }
       if (!user) {
@@ -73,7 +74,12 @@ module.exports = {
       if (!isEmpty(errors)) {
         throw new Error(JSON.stringify(errors));
       }
-      const payload = { userId: user._id, avatar: user.avatar };
+      const payload = {
+        userId: user._id,
+        avatar: user.avatar,
+        handle: user.handle,
+        bio: user.bio
+      };
       const token = await jwt.sign(payload, process.env.SECRET, {
         expiresIn: 3600
       });
@@ -96,6 +102,9 @@ module.exports = {
       }
       if (args.editInput.handle.length > 10) {
         throw new Error("Handle can't be longer then 10 characters");
+      }
+      if (/\s/.test(args.editInput.handle)) {
+        throw new Error("Handle cannot include whitespaces");
       }
       if (args.editInput.handle) {
         const handleOccupied = await User.findOne({
