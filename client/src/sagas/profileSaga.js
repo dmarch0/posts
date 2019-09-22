@@ -26,10 +26,12 @@ function* profileWorker(action) {
             follows {
                 name
                 avatar
+                _id
             }
             followers {
                 name
                 avatar
+                _id
             }
             posts {
                 title

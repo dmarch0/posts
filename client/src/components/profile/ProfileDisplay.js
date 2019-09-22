@@ -3,11 +3,19 @@ import { connect } from "react-redux";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-import { profileFetch } from "../../actions/profileAction";
+import { profileFetch, followUser } from "../../actions/profileAction";
 import placeholder from "../../img/placeholder.jpg";
 import Spinner from "../common/Spinner";
+import Button from "../fields/Button";
 
-const ProfileDisplay = ({ profileFetch, match, className, profile, auth }) => {
+const ProfileDisplay = ({
+  profileFetch,
+  match,
+  className,
+  profile,
+  auth,
+  followUser
+}) => {
   const { handle } = match.params;
 
   useEffect(() => {
@@ -18,7 +26,15 @@ const ProfileDisplay = ({ profileFetch, match, className, profile, auth }) => {
     }
   }, [handle, profileFetch]);
   const userMatchedRender = <Link to="/edit">edit profile</Link>;
-  const userNotMatchedRender = "user not matched";
+
+  const userNotMatchedRender = profile.loading ? null : profile.profile.followers.filter(
+      follower => follower._id === auth.userId
+    ).length > 0 ? (
+    <Button>unfollow</Button>
+  ) : (
+    <Button onClick={() => followUser(profile.profile._id)}>follow</Button>
+  );
+
   const renderedContent = profile.loading ? (
     <Spinner />
   ) : profile.error ? (
@@ -29,6 +45,7 @@ const ProfileDisplay = ({ profileFetch, match, className, profile, auth }) => {
         <div className="avatar-container">
           <img
             src={profile.profile.avatar ? profile.profile.avatar : placeholder}
+            alt="user avatar"
           />
         </div>
         <div className="info-container">
@@ -41,6 +58,10 @@ const ProfileDisplay = ({ profileFetch, match, className, profile, auth }) => {
                   : userNotMatchedRender}
               </div>
             ) : null}
+          </div>
+          <div className="followers-info">
+            followers: {profile.profile.followers.length}, following:{" "}
+            {profile.profile.follows.length}
           </div>
           <p>{profile.profile.bio}</p>
         </div>
@@ -85,5 +106,5 @@ const mapStateToProps = state => ({ profile: state.profile, auth: state.auth });
 
 export default connect(
   mapStateToProps,
-  { profileFetch }
+  { profileFetch, followUser }
 )(StyledProfileDisplay);

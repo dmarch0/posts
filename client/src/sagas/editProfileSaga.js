@@ -51,7 +51,7 @@ function* editProfileWorker(action) {
   } catch (error) {
     yield put({
       type: EDIT_ERROR,
-      payload: error.response.data.data.errors[0].message
+      payload: error.response.data.errors[0].message
     });
   }
 }

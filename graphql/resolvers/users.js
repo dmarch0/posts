@@ -4,6 +4,7 @@ const validateLoginInput = require("../../validation/login");
 const isEmpty = require("../../validation/is-empty");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const { transformUser, transformPosts } = require("./merge");
 
 module.exports = {
   //user(userId: ID, handle: String): User!
@@ -19,7 +20,8 @@ module.exports = {
       if (!user) {
         throw new Error("User not found");
       }
-      return user;
+      const result = await transformUser(user);
+      return result;
     } catch (error) {
       throw new Error("User not found");
     }
@@ -47,7 +49,8 @@ module.exports = {
         avatar: "",
         bio: ""
       });
-      const result = newUser.save();
+      const savedUser = await newUser.save();
+      const result = await transformUser(savedUser);
       return result;
     } catch (err) {
       throw err;
@@ -123,7 +126,8 @@ module.exports = {
         user.bio = args.editInput.bio;
       }
       const result = await user.save();
-      return result;
+
+      return await transformUser(result);
     } catch (error) {
       throw error;
     }
@@ -155,7 +159,7 @@ module.exports = {
       user.follows.push(userToFollow._id);
       await user.save();
       const result = await userToFollow.save();
-      return result;
+      return await transformUser(result);
     } catch (error) {
       throw error;
     }
@@ -191,7 +195,7 @@ module.exports = {
       );
       await user.save();
       const result = await userToUnfollow.save();
-      return result;
+      return await transformUser(result);
     } catch (error) {
       throw error;
     }

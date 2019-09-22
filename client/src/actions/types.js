@@ -14,3 +14,11 @@ export const EDIT_FETCH = "EDIT_FETCH";
 export const EDIT_SUCCESS = "EDIT_SUCCESS";
 export const EDIT_ERROR = "EDIT_ERROR";
 export const EDIT_CLEAR = "EDIT_CLEAR";
+
+export const FOLLOW_FETCH = "FOLLOW_FETCH";
+export const FOLLOW_SUCCESS = "FOLLOW_SUCCESS";
+export const FOLLOW_ERROR = "FOLLOW_ERROR";
+
+export const UNFOLLOW_FETCH = "UNFOLLOW_FETCH";
+export const UNFOLLOW_SUCCESS = "UNFOLLOW_SUCCESS";
+export const UNFOLLOW_ERROR = "UNFOLLOW_ERROR";

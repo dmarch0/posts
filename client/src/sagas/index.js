@@ -4,7 +4,14 @@ import authSaga from "./authSaga";
 import logoutSaga from "./logoutSaga";
 import profileSaga from "./profileSaga";
 import editProfileSaga from "./editProfileSaga";
+import followSaga from "./followSaga";
 
 export default function* rootSaga() {
-  yield all([authSaga(), logoutSaga(), profileSaga(), editProfileSaga()]);
+  yield all([
+    authSaga(),
+    logoutSaga(),
+    profileSaga(),
+    editProfileSaga(),
+    followSaga()
+  ]);
 }

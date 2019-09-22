@@ -41,7 +41,6 @@ import axios from "./config/axios";
           }
         `
         });
-        console.log(response);
         const { avatar, bio, handle } = response.data.data.user;
         decoded.avatar = avatar;
         decoded.avatar = (await checkAvatar(decoded.avatar))
