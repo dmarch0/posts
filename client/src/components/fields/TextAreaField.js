@@ -16,7 +16,7 @@ const TextAreaField = ({
       <Field
         name={name}
         component="textarea"
-        placeholder="Your bio"
+        placeholder={placeholder}
         type="text"
         maxLength="400"
       />

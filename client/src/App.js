@@ -16,6 +16,8 @@ import checkAvatar from "./utils/checkAvatar";
 import PrivateRoute from "./components/common/PrivateRoute";
 import EditProfile from "./components/profile/EditProfile";
 import axios from "./config/axios";
+import CreatePost from "./components/posts/CreatePost";
+import PostDisplay from "./components/posts/PostDisplay";
 
 (async () => {
   if (localStorage["token"]) {
@@ -64,7 +66,9 @@ const App = () => {
         <MainWrapper id="main-wrapper">
           <Route exact path="/login" component={Login} />
           <Route exact path="/profile/:handle" component={ProfileDisplay} />
+          <Route exact path="/post/:id" component={PostDisplay} />
           <PrivateRoute exact path="/edit" component={EditProfile} />
+          <PrivateRoute exact path="/create-post" component={CreatePost} />
         </MainWrapper>
         <Footer />
       </Router>

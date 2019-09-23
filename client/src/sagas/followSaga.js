@@ -28,6 +28,7 @@ function* followWorker(action) {
                         _id
                     }
                     posts {
+                        _id
                         title
                         comments {
                             author {

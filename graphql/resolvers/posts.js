@@ -1,5 +1,6 @@
 const Post = require("../../models/post");
 const User = require("../../models/user");
+const isEmpty = require("../../validation/is-empty");
 
 module.exports = {
   post: async args => {
@@ -22,6 +23,21 @@ module.exports = {
       if (!user) {
         throw new Error("Token incorrect");
       }
+
+      const errors = {};
+
+      if (!args.postInput.title) {
+        errors.title = "Title is required";
+      }
+
+      if (!args.postInput.text) {
+        errors.text = "Text is required";
+      }
+
+      if (!isEmpty(errors)) {
+        throw new Error(JSON.stringify(errors));
+      }
+
       const post = new Post({
         title: args.postInput.title,
         text: args.postInput.text,
@@ -29,7 +45,10 @@ module.exports = {
         date: Date.now(),
         comments: []
       });
+
       const result = await post.save();
+      user.posts.push(result._id);
+      await user.save();
       return result;
     } catch (error) {
       throw error;

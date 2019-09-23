@@ -2,10 +2,12 @@ import {
   LOGIN_ERROR,
   LOGIN_CLEAR,
   EDIT_ERROR,
-  EDIT_CLEAR
+  EDIT_CLEAR,
+  ADD_POST_ERROR,
+  ADD_POST_SUCCESS
 } from "../actions/types";
 
-const initialState = { login: {}, edit: {} };
+const initialState = { login: {}, edit: {}, addPost: {} };
 
 const errorReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -17,6 +19,10 @@ const errorReducer = (state = initialState, action) => {
       return { ...state, edit: action.payload };
     case EDIT_CLEAR:
       return { ...state, edit: {} };
+    case ADD_POST_ERROR:
+      return { ...state, addPost: action.payload };
+    case ADD_POST_SUCCESS:
+      return { ...state, addPost: {} };
     default:
       return state;
   }

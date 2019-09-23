@@ -32,6 +32,7 @@ function* unfollowWorker(action) {
                             _id
                         }
                         posts {
+                            _id
                             title
                             comments {
                                 author {

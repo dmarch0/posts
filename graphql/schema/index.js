@@ -18,6 +18,7 @@ module.exports = buildSchema(`
         date: String!
         comments: [Comment!]!
         _id: ID!
+        text: String!
     }
 
     type Comment {
