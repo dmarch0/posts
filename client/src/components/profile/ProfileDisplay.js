@@ -3,7 +3,11 @@ import { connect } from "react-redux";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-import { profileFetch, followUser } from "../../actions/profileAction";
+import {
+  profileFetch,
+  followUser,
+  unfollowUser
+} from "../../actions/profileAction";
 import placeholder from "../../img/placeholder.jpg";
 import Spinner from "../common/Spinner";
 import Button from "../fields/Button";
@@ -14,7 +18,8 @@ const ProfileDisplay = ({
   className,
   profile,
   auth,
-  followUser
+  followUser,
+  unfollowUser
 }) => {
   const { handle } = match.params;
 
@@ -30,7 +35,7 @@ const ProfileDisplay = ({
   const userNotMatchedRender = profile.loading ? null : profile.profile.followers.filter(
       follower => follower._id === auth.userId
     ).length > 0 ? (
-    <Button>unfollow</Button>
+    <Button onClick={() => unfollowUser(profile.profile._id)}>unfollow</Button>
   ) : (
     <Button onClick={() => followUser(profile.profile._id)}>follow</Button>
   );
@@ -106,5 +111,5 @@ const mapStateToProps = state => ({ profile: state.profile, auth: state.auth });
 
 export default connect(
   mapStateToProps,
-  { profileFetch, followUser }
+  { profileFetch, followUser, unfollowUser }
 )(StyledProfileDisplay);

@@ -49,7 +49,6 @@ function* profileWorker(action) {
     try {
       const avatarResponse = yield call(axios.get, user.avatar);
     } catch (error) {
-      console.log(error);
       user.avatar = false;
     }
     yield put({ type: PROFILE_SUCCESS, payload: user });

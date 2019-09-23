@@ -1,9 +1,7 @@
 import { call, put, takeEvery } from "redux-saga/effects";
-import axios from "axios";
 
-import { FOLLOW_FETCH } from "../actions/types";
+import { FOLLOW_FETCH, FOLLOW_SUCCESS, FOLLOW_ERROR } from "../actions/types";
 import axiosConfig from "../config/axios";
-import checkAvatar from "../utils/checkAvatar";
 
 function* followWatcher() {
   yield takeEvery(FOLLOW_FETCH, followWorker);
@@ -22,10 +20,12 @@ function* followWorker(action) {
                     follows {
                         name
                         avatar
+                        _id
                     }
                     followers {
                         name
                         avatar
+                        _id
                     }
                     posts {
                         title
@@ -39,9 +39,11 @@ function* followWorker(action) {
             }
           `
     });
-    console.log(response);
+    const { follow } = response.data.data;
+
+    yield put({ type: FOLLOW_SUCCESS, payload: follow });
   } catch (error) {
-    console.log(error.response);
+    yield put({ type: FOLLOW_ERROR, payload: error.data.message });
   }
 }
 
