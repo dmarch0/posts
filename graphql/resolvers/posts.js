@@ -1,17 +1,21 @@
 const Post = require("../../models/post");
 const User = require("../../models/user");
 const isEmpty = require("../../validation/is-empty");
+const { transformPost } = require("./merge");
 
 module.exports = {
   post: async args => {
     try {
+      console.log(args);
       const post = await Post.findById(args.postId);
       if (!post) {
         throw new Error("Post not found");
       }
-      return post;
+      const result = await transformPost(post);
+      return result;
     } catch (error) {
-      throw new Error("Post not found");
+      //throw new Error("Post not found");
+      throw error;
     }
   },
   addPost: async (args, req) => {

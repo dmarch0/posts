@@ -26,3 +26,11 @@ export const UNFOLLOW_ERROR = "UNFOLLOW_ERROR";
 export const ADD_POST_FETCH = "ADD_POST_FETCH";
 export const ADD_POST_SUCCESS = "ADD_POST_SUCCESS";
 export const ADD_POST_ERROR = "ADD_POST_ERROR";
+
+export const POST_FETCH = "POST_FETCH";
+export const POST_SUCCESS = "POST_SUCCESS";
+export const POST_ERROR = "POST_ERROR";
+
+export const COMMENT_FETCH = "COMMENT_FETCH";
+export const COMMENT_SUCCESS = "COMMENT_SUCCESS";
+export const COMMENT_ERROR = "COMMENT_ERROR";

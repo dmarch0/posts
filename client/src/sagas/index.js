@@ -7,6 +7,7 @@ import editProfileSaga from "./editProfileSaga";
 import followSaga from "./followSaga";
 import unfollowSaga from "./unfollowSaga";
 import addPostSaga from "./addPostSaga";
+import postSaga from "./postSaga";
 
 export default function* rootSaga() {
   yield all([
@@ -16,6 +17,7 @@ export default function* rootSaga() {
     editProfileSaga(),
     followSaga(),
     unfollowSaga(),
-    addPostSaga()
+    addPostSaga(),
+    postSaga()
   ]);
 }

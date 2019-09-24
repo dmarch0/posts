@@ -13,8 +13,17 @@ const transformUser = user => {
 const transformPosts = posts => {
   return posts.map(post => ({
     ...post._doc,
-    author: singleUser.bind(this, post._doc.author)
+    author: singleUser.bind(this, post._doc.author),
+    comments: comments.bind(this, post._doc.comments)
   }));
+};
+
+const transformPost = post => {
+  return {
+    ...post._doc,
+    author: singleUser.bind(this, post._doc.author),
+    comments: comments.bind(this, post._doc.comments)
+  };
 };
 
 const singleUser = async userId => {
@@ -22,7 +31,7 @@ const singleUser = async userId => {
     const result = await User.findById(userId);
     return {
       ...result._doc,
-      posts: posts.bind(this, user._doc.posts),
+      posts: posts.bind(this, result._doc.posts),
       follows: users.bind(this, result._doc.follows),
       followers: users.bind(this, result._doc.followers)
     };
@@ -50,7 +59,8 @@ const posts = async postsIds => {
     const result = await Post.find({ _id: { $in: postsIds } });
     return result.map(post => ({
       ...post._doc,
-      author: singleUser.bind(this, post._doc.author)
+      author: singleUser.bind(this, post._doc.author),
+      comments: comments.bind(this, post._doc.comments)
     }));
   } catch (error) {
     throw error;
@@ -65,4 +75,11 @@ const singlePost = async postId => {
   }
 };
 
-module.exports = { transformPosts, transformUser };
+const comments = async comments => {
+  return comments.map(comment => ({
+    ...comment,
+    author: singleUser.bind(this, comment.author)
+  }));
+};
+
+module.exports = { transformPosts, transformUser, transformPost };
