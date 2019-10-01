@@ -23,10 +23,7 @@ function* postWorker(action) {
                         _id
                     }
                     comments {
-                        author {
-                            name
-                            _id
-                        }
+                        author
                         text
                         name
                         date

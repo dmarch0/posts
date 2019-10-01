@@ -21,8 +21,7 @@ const transformPosts = posts => {
 const transformPost = post => {
   return {
     ...post._doc,
-    author: singleUser.bind(this, post._doc.author),
-    comments: comments.bind(this, post._doc.comments)
+    author: singleUser.bind(this, post._doc.author)
   };
 };
 
@@ -59,8 +58,7 @@ const posts = async postsIds => {
     const result = await Post.find({ _id: { $in: postsIds } });
     return result.map(post => ({
       ...post._doc,
-      author: singleUser.bind(this, post._doc.author),
-      comments: comments.bind(this, post._doc.comments)
+      author: singleUser.bind(this, post._doc.author)
     }));
   } catch (error) {
     throw error;
@@ -75,7 +73,7 @@ const singlePost = async postId => {
   }
 };
 
-const comments = async comments => {
+const comments = comments => {
   return comments.map(comment => ({
     ...comment,
     author: singleUser.bind(this, comment.author)

@@ -6,7 +6,6 @@ const { transformPost } = require("./merge");
 module.exports = {
   post: async args => {
     try {
-      console.log(args);
       const post = await Post.findById(args.postId);
       if (!post) {
         throw new Error("Post not found");
@@ -93,6 +92,9 @@ module.exports = {
       if (!post) {
         throw new Error("Post not found");
       }
+      if (!args.commentText) {
+        throw new Error("Text is required");
+      }
       const newComment = {
         author: user._id,
         text: args.commentText,
@@ -101,7 +103,8 @@ module.exports = {
         date: Date.now()
       };
       post.comments.push(newComment);
-      const result = await post.save();
+      const savedPost = await post.save();
+      const result = await transformPost(savedPost);
       return result;
     } catch (error) {
       throw error;

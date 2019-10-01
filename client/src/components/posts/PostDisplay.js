@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import { postFetch } from "../../actions/postActions";
 import Spinner from "../common/Spinner";
 import CommentForm from "./CommentForm";
+import CommentItem from "./CommentItem";
 
 const PostDisplay = ({ className, postFetch, match, post, auth }) => {
   useEffect(() => {
@@ -22,9 +23,11 @@ const PostDisplay = ({ className, postFetch, match, post, auth }) => {
       </div>
       <div className="comments-container">
         <h1 className="comments-header">Comments: </h1>
-        <CommentForm />
+        <CommentForm postId={post.post._id} />
         {post.post.comments.length > 0 ? (
-          <div>some comments here</div>
+          post.post.comments.map(comment => (
+            <CommentItem key={comment._id} comment={comment} />
+          ))
         ) : (
           <p>No comments yet</p>
         )}
@@ -34,7 +37,15 @@ const PostDisplay = ({ className, postFetch, match, post, auth }) => {
   return <div className={className}>{renderContent}</div>;
 };
 
-const StyledPostDisplay = styled(PostDisplay)``;
+const StyledPostDisplay = styled(PostDisplay)`
+  .post-container {
+  }
+  .comments-container {
+    .comments-header {
+      margin: 0px;
+    }
+  }
+`;
 
 const mapStateToProps = state => ({ post: state.post, auth: state.auth });
 

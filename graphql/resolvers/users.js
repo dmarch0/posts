@@ -21,6 +21,7 @@ module.exports = {
         throw new Error("User not found");
       }
       const result = await transformUser(user);
+      console.log(result);
       return result;
     } catch (error) {
       throw new Error("User not found");

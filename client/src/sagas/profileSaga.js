@@ -37,9 +37,7 @@ function* profileWorker(action) {
                 _id
                 title
                 comments {
-                    author {
-                        name
-                    }
+                    author
                 }
             }
         }
@@ -54,7 +52,11 @@ function* profileWorker(action) {
     }
     yield put({ type: PROFILE_SUCCESS, payload: user });
   } catch (error) {
-    yield put({ type: PROFILE_ERROR, payload: error.data.message });
+    console.log(error.response);
+    yield put({
+      type: PROFILE_ERROR,
+      payload: error.response.data.errors[0].message
+    });
   }
 }
 

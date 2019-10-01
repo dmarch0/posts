@@ -12,7 +12,7 @@ const TextAreaField = ({
 }) => {
   return (
     <div className={className}>
-      <label>{label}</label>
+      {label ? <label>{label}</label> : null}
       <Field
         name={name}
         component="textarea"
@@ -35,10 +35,12 @@ const StyledTextAreaField = styled(TextAreaField)`
   textarea {
     display: block;
     resize: none;
-    width: 60%;
-    height: 10rem;
+    width: ${props => (props.width ? props.width : "60%")};
+    height: ${props => (props.height ? props.height : "10rem")};
+    border-radius: 5px;
     &:focus {
       outline: none;
+      box-shadow: inset 0 0 5px #000000;
     }
   }
   .desc {

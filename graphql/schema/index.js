@@ -22,11 +22,12 @@ module.exports = buildSchema(`
     }
 
     type Comment {
-        author: User!
+        author: String!
         text: String!
         name: String!
         avatar: String!
         date: String!
+        _id: ID!
     }
 
     input UserInput {
