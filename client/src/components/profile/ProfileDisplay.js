@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
@@ -11,6 +11,8 @@ import {
 import placeholder from "../../img/placeholder.jpg";
 import Spinner from "../common/Spinner";
 import Button from "../fields/Button";
+import ModalList from "./ModalList";
+import StyledModal from "../common/StyledModal";
 
 const ProfileDisplay = ({
   profileFetch,
@@ -30,6 +32,8 @@ const ProfileDisplay = ({
       profileFetch(null, handle);
     }
   }, [handle, profileFetch]);
+  const [isModalOpen, toggleModal] = useState(false);
+  const [modalListContent, changeModalListContent] = useState([]);
   const userMatchedRender = <Link to="/edit">edit profile</Link>;
 
   const userNotMatchedRender = profile.loading ? null : profile.profile.followers.filter(
@@ -65,8 +69,26 @@ const ProfileDisplay = ({
             ) : null}
           </div>
           <div className="followers-info">
-            followers: {profile.profile.followers.length}, following:{" "}
-            {profile.profile.follows.length}
+            <a
+              onClick={() => {
+                if (profile.profile.followers.length > 0) {
+                  changeModalListContent(profile.profile.followers);
+                  toggleModal(true);
+                }
+              }}
+            >
+              followers: {profile.profile.followers.length},
+            </a>{" "}
+            <a
+              onClick={() => {
+                if (profile.profile.follows.length > 0) {
+                  changeModalListContent(profile.profile.follows);
+                  toggleModal(true);
+                }
+              }}
+            >
+              following: {profile.profile.follows.length}
+            </a>
           </div>
           <p>{profile.profile.bio}</p>
         </div>
@@ -91,6 +113,9 @@ const ProfileDisplay = ({
           <Link to="/create-post">create a post</Link>
         ) : null}
       </div>
+      <StyledModal isOpen={isModalOpen} toggleOpen={toggleModal}>
+        <ModalList content={modalListContent} />
+      </StyledModal>
     </>
   );
   return <div className={className}>{renderedContent}</div>;
@@ -118,6 +143,12 @@ const StyledProfileDisplay = styled(ProfileDisplay)`
         }
         .info-control {
           padding: 0px 5px;
+        }
+      }
+      .followers-info {
+        a {
+          text-decoration: underline;
+          display: inline-block;
         }
       }
     }

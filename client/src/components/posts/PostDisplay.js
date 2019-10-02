@@ -23,7 +23,7 @@ const PostDisplay = ({ className, postFetch, match, post, auth }) => {
       </div>
       <div className="comments-container">
         <h1 className="comments-header">Comments: </h1>
-        <CommentForm postId={post.post._id} />
+
         {post.post.comments.length > 0 ? (
           post.post.comments.map(comment => (
             <CommentItem key={comment._id} comment={comment} />
@@ -31,6 +31,7 @@ const PostDisplay = ({ className, postFetch, match, post, auth }) => {
         ) : (
           <p>No comments yet</p>
         )}
+        {auth.isAuth ? <CommentForm postId={post.post._id} /> : null}
       </div>
     </>
   );

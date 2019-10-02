@@ -14,14 +14,12 @@ module.exports = {
       if (args.userId) {
         user = await User.findById(args.userId);
       } else if (args.handle) {
-        console.log("handle found");
         user = await User.findOne({ handle: args.handle });
       }
       if (!user) {
         throw new Error("User not found");
       }
       const result = await transformUser(user);
-      console.log(result);
       return result;
     } catch (error) {
       throw new Error("User not found");

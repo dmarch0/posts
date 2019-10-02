@@ -14,7 +14,13 @@ const CommentForm = ({ handleSubmit, postId, commentFetch }) => {
         commentFetch(text, postId);
       })}
     >
-      <TextAreaField name="commentText" placeholder="Add a comment" />
+      <TextAreaField
+        name="commentText"
+        placeholder="Add a comment"
+        maxLength="200"
+        width="40%"
+        height="100px"
+      />
       <Button>Submit</Button>
     </form>
   );

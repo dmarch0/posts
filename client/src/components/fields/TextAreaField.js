@@ -8,7 +8,8 @@ const TextAreaField = ({
   label,
   placeholder,
   desc,
-  defaultValue
+  defaultValue,
+  maxLength
 }) => {
   return (
     <div className={className}>
@@ -18,7 +19,7 @@ const TextAreaField = ({
         component="textarea"
         placeholder={placeholder}
         type="text"
-        maxLength="400"
+        maxLength={maxLength ? maxLength : "400"}
       />
       {desc ? <div className="desc">{desc}</div> : null}
     </div>
