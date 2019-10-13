@@ -2,7 +2,8 @@ import {
   PROFILE_FETCH,
   EDIT_FETCH,
   FOLLOW_FETCH,
-  UNFOLLOW_FETCH
+  UNFOLLOW_FETCH,
+  PROFILE_CLEAR
 } from "./types";
 
 export const profileFetch = (id, handle) => {
@@ -26,4 +27,8 @@ export const followUser = userId => ({
 export const unfollowUser = userId => ({
   type: UNFOLLOW_FETCH,
   payload: userId
+});
+
+export const profileClear = () => ({
+  type: PROFILE_CLEAR
 });

@@ -50,7 +50,10 @@ const Navbar = ({ className, auth, logout, history }) => {
       </div>
       <div className="nav-block">
         <div className="nav-item">
-          <Link to="/login">login</Link>
+          <Link to="/register">sign up</Link>
+        </div>
+        <div className="nav-item">
+          <Link to="/login">log in</Link>
         </div>
       </div>
     </>

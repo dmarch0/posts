@@ -7,7 +7,12 @@ const ModalList = ({ toggleModal, content }) => {
       <ul>
         {content.map(item => (
           <li>
-            <Link to={`/profile/${item._id}`}>{item.name}</Link>
+            <Link
+              to={`/profile/${item._id}`}
+              onClick={() => toggleModal(false)}
+            >
+              {item.name}
+            </Link>
           </li>
         ))}
       </ul>

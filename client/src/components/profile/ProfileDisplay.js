@@ -6,7 +6,8 @@ import { Link } from "react-router-dom";
 import {
   profileFetch,
   followUser,
-  unfollowUser
+  unfollowUser,
+  profileClear
 } from "../../actions/profileAction";
 import placeholder from "../../img/placeholder.jpg";
 import Spinner from "../common/Spinner";
@@ -21,7 +22,8 @@ const ProfileDisplay = ({
   profile,
   auth,
   followUser,
-  unfollowUser
+  unfollowUser,
+  profileClear
 }) => {
   const { handle } = match.params;
 
@@ -31,9 +33,14 @@ const ProfileDisplay = ({
     } else {
       profileFetch(null, handle);
     }
+    return () => {
+      profileClear();
+    };
   }, [handle, profileFetch]);
+
   const [isModalOpen, toggleModal] = useState(false);
   const [modalListContent, changeModalListContent] = useState([]);
+
   const userMatchedRender = <Link to="/edit">edit profile</Link>;
 
   const userNotMatchedRender = profile.loading ? null : profile.profile.followers.filter(
@@ -114,7 +121,7 @@ const ProfileDisplay = ({
         ) : null}
       </div>
       <StyledModal isOpen={isModalOpen} toggleOpen={toggleModal}>
-        <ModalList content={modalListContent} />
+        <ModalList content={modalListContent} toggleModal={toggleModal} />
       </StyledModal>
     </>
   );
@@ -162,5 +169,5 @@ const mapStateToProps = state => ({ profile: state.profile, auth: state.auth });
 
 export default connect(
   mapStateToProps,
-  { profileFetch, followUser, unfollowUser }
+  { profileFetch, followUser, unfollowUser, profileClear }
 )(StyledProfileDisplay);
