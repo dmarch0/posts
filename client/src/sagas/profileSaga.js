@@ -34,6 +34,7 @@ function* profileWorker(action) {
                 _id
             }
             posts {
+                date
                 _id
                 title
                 comments {
@@ -44,6 +45,7 @@ function* profileWorker(action) {
     }
 `;
     const response = yield call(axiosConfig.post, "", { query: queryString });
+    console.log(response);
     const { user } = response.data.data;
     try {
       const avatarResponse = yield call(axios.get, user.avatar);

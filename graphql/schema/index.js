@@ -70,7 +70,7 @@ module.exports = buildSchema(`
         unfollow(userId: ID!): User!
         addPost(postInput: PostInput): Post!
         commentPost(commentText: String!, postId: ID!): Post!
-        deletePost(postId: ID!): Post!
+        deletePost(postId: ID!): User!
     }
     schema {
         query: RootQuery

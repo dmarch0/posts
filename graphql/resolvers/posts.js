@@ -73,7 +73,11 @@ module.exports = {
       if (post.author.toString() !== user._id.toString()) {
         throw new Error("Unauthorized");
       }
-      const result = await Post.findByIdAndDelete(args.postId);
+      await Post.findByIdAndDelete(args.postId);
+      user.posts = user.posts.filter(post => {
+        return post.toString() !== args.postId;
+      });
+      const result = await user.save();
       return result;
     } catch (error) {
       throw error;
